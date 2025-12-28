@@ -2,30 +2,161 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>tpsmaradona72 | Cyberpunk Elite</title>
     <style>
-        body{margin:0;padding:0;background:#0a001f;color:#ff00ff;font-family:'Courier New',monospace;overflow-x:hidden}
-        canvas{position:fixed;top:0;left:0;z-index:1;opacity:0.6}
-        .container{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:40px}
-        header{text-align:center;padding:60px 0;border-bottom:3px solid #8a2be2}
-        h1{font-size:5em;text-shadow:0 0 20px #ff00ff,0 0 40px #8a2be2;animation:glitch 3s infinite}
-        @keyframes glitch{0%,100%{text-shadow:0 0 20px #ff00ff}20%{text-shadow:10px 0 #00ffff,-10px 0 #ff00ff}40%{text-shadow:-10px 0 #00ffff,10px 0 #ff00ff}}
-        .tagline{font-size:2.5em;color:#00ffff;margin:30px 0;text-shadow:0 0 15px #00ffff}
-        .skills{color:#ff00ff;font-size:2em;margin:40px 0;text-shadow:0 0 15px #ff00ff}
-        section{margin:80px 0;padding:40px;background:rgba(10,0,31,0.9);border:2px solid #8a2be2;border-radius:20px;box-shadow:0 0 40px rgba(138,43,226,0.5)}
-        h2{font-size:3em;color:#00ffff;text-shadow:0 0 20px #00ffff;text-align:center;margin-bottom:40px}
-        .chat-container{background:rgba(0,0,0,0.7);border:2px solid #00ffff;border-radius:15px;padding:20px;height:600px;display:flex;flex-direction:column}
-        .chat-messages{flex:1;overflow-y:auto;padding:10px;color:#0f0;font-size:1.2em}
-        .message{padding:10px;margin:10px 0;border-radius:10px;max-width:80%}
-        .user{background:#8a2be2;color:white;align-self:flex-end}
-        .ai{background:#00ffff;color:black;align-self:flex-start}
-        .input-area{display:flex;margin-top:20px}
-        #user-input{flex:1;padding:15px;background:#000;color:#0f0;border:2px solid #ff00ff;border-radius:10px;font-size:1.2em}
-        #send-btn{padding:15px 30px;background:#ff00ff;color:white;border:none;border-radius:10px;margin-left:10px;cursor:pointer;font-size:1.2em;box-shadow:0 0 20px #ff00ff}
-        #send-btn:hover{background:#8a2be2;box-shadow:0 0 30px #8a2be2}
-        .contact{text-align:center;margin:60px 0}
-        .discord{font-size:3em;color:#8a2be2;background:rgba(138,43,226,0.3);padding:20px 60px;border-radius:20px;display:inline-block;border:3px solid #8a2be2;box-shadow:0 0 50px rgba(138,43,226,0.7)}
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a001f;
+            color: #ff00ff;
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0.6;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-bottom: 3px solid #8a2be2;
+        }
+        h1 {
+            font-size: clamp(2.5em, 8vw, 5em);
+            margin: 0;
+            text-shadow: 0 0 20px #ff00ff, 0 0 40px #8a2be2;
+            animation: glitch 3s infinite;
+        }
+        @keyframes glitch {
+            0%,100%{text-shadow:0 0 20px #ff00ff}
+            20%{text-shadow:10px 0 #00ffff,-10px 0 #ff00ff}
+            40%{text-shadow:-10px 0 #00ffff,10px 0 #ff00ff}
+        }
+        .tagline {
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            color: #00ffff;
+            margin: 20px 0;
+            text-shadow: 0 0 15px #00ffff;
+        }
+        .skills {
+            color: #ff00ff;
+            font-size: clamp(1.2em, 4vw, 2em);
+            margin: 30px 0;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+        section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(10,0,31,0.9);
+            border: 2px solid #8a2be2;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(138,43,226,0.5);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        h2 {
+            font-size: clamp(1.8em, 6vw, 3em);
+            color: #00ffff;
+            text-shadow: 0 0 20px #00ffff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .chat-container {
+            background: rgba(0,0,0,0.7);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 20px;
+            height: 100%;
+            max-height: 60vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            color: #0f0;
+            font-size: clamp(1em, 3vw, 1.2em);
+        }
+        .message {
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 15px;
+            max-width: 85%;
+            word-wrap: break-word;
+        }
+        .user {
+            background: #8a2be2;
+            color: white;
+            align-self: flex-end;
+        }
+        .ai {
+            background: #00ffff;
+            color: black;
+            align-self: flex-start;
+        }
+        .input-area {
+            display: flex;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        #user-input {
+            flex: 1;
+            padding: 15px;
+            background: #000;
+            color: #0f0;
+            border: 2px solid #ff00ff;
+            border-radius: 10px;
+            font-size: clamp(1em, 4vw, 1.2em);
+        }
+        #send-btn {
+            padding: 15px 25px;
+            background: #ff00ff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: clamp(1em, 4vw, 1.2em);
+            box-shadow: 0 0 20px #ff00ff;
+        }
+        #send-btn:hover {
+            background: #8a2be2;
+            box-shadow: 0 0 30px #8a2be2;
+        }
+        .contact {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+        .discord {
+            font-size: clamp(1.8em, 7vw, 3em);
+            color: #8a2be2;
+            background: rgba(138,43,226,0.3);
+            padding: 15px 40px;
+            border-radius: 20px;
+            display: inline-block;
+            border: 3px solid #8a2be2;
+            box-shadow: 0 0 50px rgba(138,43,226,0.7);
+        }
     </style>
 </head>
 <body>
@@ -40,16 +171,15 @@
 
         <section>
             <h2>Free Python Course - AI Teacher (Built-in)</h2>
-            <p style="text-align:center;font-size:1.8em;color:#00ffff;margin-bottom:30px;">
-                Chat with the AI below — it teaches Python from zero to advanced.<br>
-                Ask: "Explain variables", "Make a game", "Fix this code", anything.
+            <p style="text-align:center;font-size:1.5em;color:#00ffff;margin-bottom:20px;">
+                Chat with the AI — it teaches Python from zero to advanced.
             </p>
             <div class="chat-container">
                 <div class="chat-messages" id="messages">
-                    <div class="message ai">Hello! I'm your Python AI teacher. Ask me anything about Python — I'll explain, give examples, and help you code. What's your first question?</div>
+                    <div class="message ai">Hello! I'm your Python AI teacher. Ask me anything — variables, loops, functions, games, fix code... Ready when you are!</div>
                 </div>
                 <div class="input-area">
-                    <input type="text" id="user-input" placeholder="Type your Python question here..." autocomplete="off">
+                    <input type="text" id="user-input" placeholder="Ask about Python...">
                     <button id="send-btn">Send</button>
                 </div>
             </div>
@@ -57,7 +187,7 @@
 
         <section>
             <h2>My Tools (Coming Soon)</h2>
-            <p style="text-align:center;font-size:1.8em;">
+            <p style="text-align:center;font-size:1.5em;">
                 Token Grabbers • RAT Builders • Roblox Tools • DDoS • Ransomware • More<br>
                 All hand-coded. All elite.
             </p>
@@ -77,8 +207,8 @@
 
         const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
         const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = new Array(Math.floor(columns)).fill(1);
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = new Array(columns).fill(1);
 
         function draw() {
             ctx.fillStyle = 'rgba(10, 0, 31, 0.05)';
@@ -99,20 +229,25 @@
         }
         setInterval(draw, 40);
 
+        // Responsive resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            columns = Math.floor(canvas.width / fontSize);
+            drops = new Array(columns).fill(1);
         });
 
-        // Simple AI Python Teacher (rule-based, smart responses)
+        // AI Python Teacher Chat
         const responses = {
             "hello": "Hey! Ready to learn Python? Ask me anything — from basics to advanced.",
-            "variable": "Variables store data. Example:\nname = \"John\"\nage = 25\nprint(name, age)",
-            "loop": "For loop example:\nfor i in range(5):\n    print(i)\n\nWhile loop:\ncount = 0\nwhile count < 5:\n    print(count)\n    count += 1",
-            "function": "Functions:\ndef greet(name):\n    return f\"Hello {name}!\"\n\nprint(greet(\"World\"))",
-            "list": "Lists: my_list = [1, 2, 3]\nmy_list.append(4)\nprint(my_list)",
-            "if": "If statement:\nif age >= 18:\n    print(\"Adult\")\nelse:\n    print(\"Minor\")",
-            "class": "Classes:\nclass Dog:\n    def __init__(self, name):\n        self.name = name\n    def bark(self):\n        print(\"Woof!\")\n\nmy_dog = Dog(\"Rex\")\nmy_dog.bark()",
+            "hi": "Hi! I'm your Python teacher. What do you want to learn today?",
+            "variable": "Variables store data:\nname = \"John\"\nage = 25\nprint(name, age)",
+            "loop": "For loop:\nfor i in range(5):\n    print(i)\n\nWhile loop:\ncount = 0\nwhile count < 5:\n    print(count)\n    count += 1",
+            "function": "Functions:\ndef greet(name):\n    return f\"Hello {name}!\"\nprint(greet(\"World\"))",
+            "list": "Lists:\nmy_list = [1, 2, 3]\nmy_list.append(4)\nprint(my_list)",
+            "if": "If statement:\nage = 18\nif age >= 18:\n    print(\"Adult\")\nelse:\n    print(\"Minor\")",
+            "class": "Classes:\nclass Dog:\n    def __init__(self, name):\n        self.name = name\n    def bark(self):\n        print(\"Woof!\")\nmy_dog = Dog(\"Rex\")\nmy_dog.bark()",
+            "game": "Simple game idea:\nimport random\nnumber = random.randint(1, 100)\nguess = int(input(\"Guess: \"))\nwhile guess != number:\n    if guess < number: print(\"Higher\")\n    else: print(\"Lower\")\n    guess = int(input(\"Guess: \"))\nprint(\"You got it!\")",
             "default": "I'm your Python teacher! Try asking:\n- \"Explain variables\"\n- \"How to make a loop\"\n- \"What is a function\"\n- \"Help me make a game\"\nOr paste your code and I'll fix it!"
         };
 
